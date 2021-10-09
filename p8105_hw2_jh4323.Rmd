@@ -129,14 +129,14 @@ For the snp data set, it contains `r nrow(snp_df)` observations with `r ncol(snp
 
 For the unemployment data set, it contains `r nrow(unemployment_df)` observations with `r ncol(unemployment_df)` variables which are respectively `r names(unemployment_df)`. The range of years is from 1948 to 2015.
 
-For the merging data set, it contains `r nrow(pols_snp_unemploy_df)` observations with `r ncol(pols_snp_unemploy_df)` variables which are respectively `r names(pols_snp_unemploy_df)`
+As for the merging data set, it contains `r nrow(pols_snp_unemploy_df)` observations with `r ncol(pols_snp_unemploy_df)` variables which are respectively `r names(pols_snp_unemploy_df)`
 
 
 ## Problem 3
 
 Load and tidy the data
 
-```{r, message=FALSE}
+```{r, message = FALSE}
 popular_baby_names_df <- read_csv("./data/Popular_Baby_Names.csv") %>% 
   janitor::clean_names() %>% 
   drop_na() %>% 
@@ -171,6 +171,7 @@ olivia_df %>%
 
 
 Produce a similar table showing the most popular name among male children over time
+
 ```{r}
 popmale_df <- 
   filter(popular_baby_names_df, gender == "male" & rank == 1) %>% 
@@ -192,6 +193,7 @@ scatterplot_df <-
   filter(
     popular_baby_names_df, 
     gender == "male" & ethnicity == "WHITE NON HISPANIC" & year_of_birth == 2016)
+
 # Let's plot!!
 scatterplot_df %>% 
   ggplot(aes(x = rank, y = count)) + 
