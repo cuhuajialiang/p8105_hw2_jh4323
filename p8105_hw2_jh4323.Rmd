@@ -64,3 +64,33 @@ The second data set was the month precipitation data in 2018 and 2019. The datas
 * The median number of sports balls in a dumpster in 2019 was `r trashwheel_df %>% filter(year == 2019) %>% pull(sports_balls) %>% median()`
 
 
+## Problem 2
+
+First, clean the data in pols-month.csv
+
+```{r polsmonth}
+pols_month_df <-
+  read_csv("./data/fivethirtyeight_datasets/pols-month.csv") %>% 
+  janitor::clean_names() %>% 
+  separate(mon, sep = "-", into = c("year", "month", "day")) %>% 
+  mutate(
+    year = as.integer(year),
+    month = as.integer(month), 
+    day = as.integer(day),
+    month = month.name[month],
+    president = ifelse(prez_gop == 0, "dem", "gop")
+  ) %>% 
+  select(-day,  -prez_gop, -prez_dem) %>% 
+  relocate(year, month, president)
+view(pols_month_df)
+```
+    
+Second, clean the data in snp.csv
+
+```{r}
+
+```
+
+
+
+
