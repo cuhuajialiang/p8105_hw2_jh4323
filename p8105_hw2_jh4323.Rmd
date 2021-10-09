@@ -82,7 +82,6 @@ pols_month_df <-
   ) %>% 
   select(-day,  -prez_gop, -prez_dem) %>% 
   relocate(year, month, president)
-view(pols_month_df)
 ```
     
 Second, clean the data in snp.csv
@@ -100,13 +99,12 @@ snp_df <-
   select(-day) %>% 
   arrange(year, month) %>% 
   relocate(year, month)
-view(snp_df)
 ```
 
 Third, tidy the unemployment data 
 
 ```{r}
-unemployment_data <- 
+unemployment_df <- 
   read_csv("./data/fivethirtyeight_datasets/unemployment.csv") %>% 
   pivot_longer(Jan:Dec, 
                names_to = "month", 
@@ -117,5 +115,20 @@ unemployment_data <-
          year = as.integer(year))
 ```
 
+Join the datasets by merging snp into pols, and merging unemployment into the result
+
+```{r}
+pols_snp_unemploy_df <- 
+  left_join(pols_month_df, snp_df, by = c("year", "month")) %>% 
+  left_join(unemployment_df, by = c("year", "month"))
+```
+
+For the pols-months data set, it contains `r nrow(pols_month_df)` observations with `r ncol(pols_month_df)` variables which are respectively `r names(pols_month_df)`. The range of years is from 1947 to 2015.
+
+For the snp data set, it contains `r nrow(snp_df)` observations with `r ncol(snp_df)` variables which are respectively `r names(snp_df)`. The range of years is from 1969 to 2015.
+
+For the unemployment data set, it contains `r nrow(unemployment_df)` observations with `r ncol(unemployment_df)` variables which are respectively `r names(unemployment_df)`. The range of years is from 1948 to 2015.
+
+For the merging data set, it contains `r nrow(pols_snp_unemploy_df)` observations with `r ncol(pols_snp_unemploy_df)` variables which are respectively `r names(pols_snp_unemploy_df)`
 
 
