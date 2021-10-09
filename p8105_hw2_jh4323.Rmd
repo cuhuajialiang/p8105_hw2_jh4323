@@ -103,7 +103,7 @@ snp_df <-
 
 Third, tidy the unemployment data 
 
-```{r}
+```{r unemploymentdf}
 unemployment_df <- 
   read_csv("./data/fivethirtyeight_datasets/unemployment.csv") %>% 
   pivot_longer(Jan:Dec, 
@@ -132,7 +132,7 @@ For the unemployment data set, it contains `r nrow(unemployment_df)` observation
 For the merging data set, it contains `r nrow(pols_snp_unemploy_df)` observations with `r ncol(pols_snp_unemploy_df)` variables which are respectively `r names(pols_snp_unemploy_df)`
 
 
-##Problem 3
+## Problem 3
 
 Load and tidy the data
 
