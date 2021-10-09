@@ -68,7 +68,7 @@ The second data set was the month precipitation data in 2018 and 2019. The datas
 
 First, clean the data in pols-month.csv
 
-```{r polsmonth}
+```{r polsmonthdf}
 pols_month_df <-
   read_csv("./data/fivethirtyeight_datasets/pols-month.csv") %>% 
   janitor::clean_names() %>% 
@@ -87,10 +87,27 @@ view(pols_month_df)
     
 Second, clean the data in snp.csv
 
+```{r snpdf}
+snp_df <- 
+  read_csv("./data/fivethirtyeight_datasets/snp.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(date = lubridate::mdy(date)) %>% 
+  separate(date, into = c("year", "month", "day")) %>% 
+  mutate(year = as.integer(year),
+         month = as.integer(month),
+         day = as.integer(day),
+         month = month.name[month]) %>% 
+  select(-day) %>% 
+  arrange(year, month) %>% 
+  relocate(year, month)
+view(snp_df)
+```
+
+Third, tidy the unemployment data 
+
 ```{r}
 
 ```
-
 
 
 
