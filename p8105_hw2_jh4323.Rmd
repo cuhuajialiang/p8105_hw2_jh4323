@@ -132,3 +132,38 @@ For the unemployment data set, it contains `r nrow(unemployment_df)` observation
 For the merging data set, it contains `r nrow(pols_snp_unemploy_df)` observations with `r ncol(pols_snp_unemploy_df)` variables which are respectively `r names(pols_snp_unemploy_df)`
 
 
+##Problem 3
+
+Load and tidy the data
+
+```{r, message=FALSE}
+popular_baby_names_df <- read_csv("./data/Popular_Baby_Names.csv") %>% 
+  janitor::clean_names() %>% 
+  drop_na() %>% 
+  mutate(
+    gender = tolower(gender),
+    childs_first_name = tolower(childs_first_name),
+    childs_first_name = Hmisc::capitalize(childs_first_name),
+    ethnicity = recode(
+      ethnicity,
+      "ASIAN AND PACI" = "ASIAN AND PACIFIC ISLANDER",
+      "BLACK NON HISP" = "BLACK NON HISPANIC",
+      "WHITE NON HISP" = "WHITE NON HISPANIC"
+    ),
+    ethnicity = toupper(ethnicity)
+  ) %>% 
+  distinct()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
