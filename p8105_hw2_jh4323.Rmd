@@ -106,7 +106,15 @@ view(snp_df)
 Third, tidy the unemployment data 
 
 ```{r}
-
+unemployment_data <- 
+  read_csv("./data/fivethirtyeight_datasets/unemployment.csv") %>% 
+  pivot_longer(Jan:Dec, 
+               names_to = "month", 
+               values_to = "unemployment") %>% 
+  janitor::clean_names() %>% 
+  mutate(month = match(month, month.abb),
+         month = month.name[month],
+         year = as.integer(year))
 ```
 
 
